@@ -5,7 +5,7 @@
 | Column             | Type   | Options     |
 | ------------------ | ------ | ----------- |
 | nickname           | string | null: false |
-| email              | string | unique: true |
+| email              | string | unique: true, null: false|
 | encrypted_password | string | null: false |
 | last_name          | string | null: false |
 | first_name         | string | null: false |
@@ -30,7 +30,7 @@
 | condition_id（商品の状態）| integer    | null: false                   |
 | fee_id    （配送料の負担） | integer    | null: false                   |
 | region_id （発送元の地域） | integer    | null: false                   |
-| day_id （発送までの日数） | integer    | null: false                   |
+| send_id （発送までの日数） | integer    | null: false                   |
 | price(価格)              | integer    | null: false                   |
 | user                    | references | null: false, foreign_key: true|
 
@@ -58,7 +58,7 @@
 | Column                | Type   | Options     |
 | --------------------- | -----  | ----------- |
 | postal_code(郵便番号)  | string | null: false |
-| prefecture_id(都道府県) | integer | null: false |
+| region_id(都道府県)    | integer | null: false |
 | city(市町村)           ｜ string| null: false |
 | address(番地)          | string | null: false |
 | building_name(建物名)  | string |             |
