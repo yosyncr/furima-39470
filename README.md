@@ -63,8 +63,6 @@
 | address(番地)          | string | null: false |
 | building_name(建物名)  | string |             |
 | phone_number （電話番号）| string | null: false |
-| user   | references | null: false, foreign_key: true |
-| item   | references | null: false, foreign_key: true |
 | order   | references | null: false, foreign_key: true |
 ### Association
 
