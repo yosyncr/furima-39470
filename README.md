@@ -7,49 +7,52 @@
 | nickname           | string | null: false |
 | email              | string | null: false |
 | encrypted_password | string | null: false |
-| name               | string | null: false |
-| kana_name          | string | null: false |
+| last_name          | string | null: false |
+| first_name         | string | null: false |
+| kana_last_name     | string | null: false |
+| kana_first_name    | string | null: false |
 | birth_date         | date   | null: false |
+
 
 ### Association
 
 - has_many :items
 - has_many :orders
-- belongs_to :delivery_address
+
 
 ##  itemsテーブル
 
-| Column      | Type       | Options                       |
-| ----------- | ---------- | ----------------------------- |
-| item_image  | text       | null: false                   |
-| item_name   | string     | null: false                   |
-| explanation | text       | null: false                   |
-| value       | integer     | null: false                   |
-| category    | string     | null: false                   |
-| situation   | string     | null: false                   |
-| load        | string     | null: false                   |
-| region      | string     | null: false                   |
-| shipping_days   | integer    | null: false               |
-| user        | references | null: false, foreign_key: true|
+| Column                  | Type       | Options                       |
+| ----------------------- | ---------- | ----------------------------- |
+| item_name               | string     | null: false                   |
+| description（商品の説明） | text       | null: false                   |
+| category_id  (カテゴリー) | integer    | null: false                   |
+| condition_id（商品の状態）| integer    | null: false                   |
+| fee_id    （配送料の負担） | integer    | null: false                   |
+| region_id （発送元の地域） | integer    | null: false                   |
+| days_id （発送までの日数） | integer    | null: false                   |
+| price(価格)              | integer    | null: false                   |
+| user                    | references | null: false, foreign_key: true|
 
 
 ### Association
 
 - belongs_to :user
 - has_one :order
-- has_one :delivery_address
+
 ## orders テーブル
 
 | Column | Type       | Options                        |
 | ------ | ---------- | ------------------------------ |
 | user   | references | null: false, foreign_key: true |
 | item   | references | null: false, foreign_key: true |
+| delivery_addresses | reference | null: false, foreign_key: true |
 
 ### Association
 
 - belongs_to :item
 - belongs_to :user
-- belongs_to :delivery_address
+- has_one :delivery_address
 
 ##  delivery_addressesテーブル
 
@@ -61,9 +64,8 @@
 | address(番地)          | string | null: false |
 | building_name(建物名)  | string |             |
 | phone_number （電話番号）| string | null: false |
+| user   | references | null: false, foreign_key: true |
 
 ### Association
 
-- belongs_to :item
-- belongs_to :user
-- belongs_to :delivery_address
+- belongs_to :order
