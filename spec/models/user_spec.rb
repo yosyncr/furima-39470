@@ -74,6 +74,35 @@ RSpec.describe User, type: :model do
         another_user.valid?
         expect(another_user.errors.full_messages).to include('Email has already been taken')
       end
+      it '英字のみのパスワードでは登録できない' do
+        @user.password = 'password'
+        expect(@user).not_to be_valid
+      end
+      it '数字のみのパスワードでは登録できない' do
+        @user.password = '1234567890'
+        expect(@user).not_to be_valid
+      end
+      it '全角文字を含むパスワードでは登録できない' do
+        @user.password = 'パスワード'
+        expect(@user).not_to be_valid
+      end
+      it '姓（全角）に半角文字が含まれていると登録できない' do
+        @user.last_name = 'Yamada'
+        expect(@user).not_to be_valid
+      end
+      it '名（全角）に半角文字が含まれていると登録できない' do
+        @user.first_name = 'Tarou' 
+        expect(@user).not_to be_valid
+      end
+      it '姓（カナ）にカタカナ以外の文字が含まれていると登録できない' do
+        @user.kana_last_name = '山da' 
+        expect(@user).not_to be_valid
+      end
+      it '名（カナ）にカタカナ以外の文字が含まれていると登録できない' do
+        @user.kana_first_name = '多rou' 
+        expect(@user).not_to be_valid
+      end
     end
   end
+  
 end
