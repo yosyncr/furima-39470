@@ -76,31 +76,41 @@ RSpec.describe User, type: :model do
       end
       it '英字のみのパスワードでは登録できない' do
         @user.password = 'password'
-        expect(@user).not_to be_valid
+        @user.password_confirmation = 'password'
+        @user.valid?
+        expect(@user.errors.full_messages).to include('Password is invalid')
       end
       it '数字のみのパスワードでは登録できない' do
-        @user.password = '1234567890'
-        expect(@user).not_to be_valid
+        @user.password = '123456'
+        @user.password_confirmation = '123456'
+        @user.valid?
+        expect(@user.errors.full_messages).to include('Password is invalid')
       end
       it '全角文字を含むパスワードでは登録できない' do
-        @user.password = 'パスワード'
-        expect(@user).not_to be_valid
+        @user.password = 'パスワードだ'
+        @user.password_confirmation = 'パスワードだ'
+        @user.valid?
+        expect(@user.errors.full_messages).to include('Password is invalid')
       end
       it '姓（全角）に半角文字が含まれていると登録できない' do
         @user.last_name = 'Yamada'
-        expect(@user).not_to be_valid
+        @user.valid?
+        expect(@user.errors.full_messages).to include('Last name is invalid')
       end
       it '名（全角）に半角文字が含まれていると登録できない' do
         @user.first_name = 'Tarou' 
-        expect(@user).not_to be_valid
+        @user.valid?
+        expect(@user.errors.full_messages).to include('First name is invalid')
       end
       it '姓（カナ）にカタカナ以外の文字が含まれていると登録できない' do
         @user.kana_last_name = '山da' 
-        expect(@user).not_to be_valid
+        @user.valid?
+        expect(@user.errors.full_messages).to include('Kana last name is invalid')
       end
       it '名（カナ）にカタカナ以外の文字が含まれていると登録できない' do
         @user.kana_first_name = '多rou' 
-        expect(@user).not_to be_valid
+        @user.valid?
+        expect(@user.errors.full_messages).to include('Kana first name is invalid')
       end
     end
   end

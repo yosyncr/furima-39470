@@ -6,8 +6,8 @@ class User < ApplicationRecord
 
          validates :nickname, presence: true
          validates :password,  format: { with: /\A(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]+\z/ }
-         validates :first_name, presence: true, format: { with: /\A[^A-Za-z]+\z/ }
-         validates :last_name, presence: true, format: { with: /\A[^A-Za-z]+\z/ }
+         validates :first_name, presence: true, format: { with: /\A[ぁ-んァ-ン一-龥]/ }
+         validates :last_name, presence: true, format: { with: /\A[ぁ-んァ-ン一-龥]/ }
          validates :kana_first_name, presence: true, format: { with: /\A[ァ-ヶー－]+\z/ }
          validates :kana_last_name, presence: true, format: { with: /\A[ァ-ヶー－]+\z/ }
          validates :birth_date, presence: true
