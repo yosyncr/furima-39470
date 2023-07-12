@@ -1,5 +1,60 @@
 require 'rails_helper'
 
 RSpec.describe Item, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  before do
+    @item = FactoryBot.build(:item)
+  end
+  describe 'ユーザー新規登録' do
+  it 'カテゴリーがないと出品できない'do
+  @item.category_id = ''
+  @item.valid?
+  expect(@item.errors.full_messages).to include("Category can't be blank", "Category can't be blank")
+  end
+  it '状態を記入してないと出品できない'do
+  @item.condition_id = ''
+  @item.valid?
+  expect(@item.errors.full_messages).to include("Condition can't be blank", "Condition can't be blank")
+  end
+  it '商品名がないと出品できない'do
+  @item.item_name = ''
+  @item.valid?
+  expect(@item.errors.full_messages).to include()
+  end
+  it '商品の詳細がないと出品できない'do
+  @item.description = ''
+  @item.valid?
+  expect(@item.errors.full_messages).to include()
+  end
+  it '送料の負担がないと出品できない'do
+  @item.fee_id = ''
+  @item.valid?
+  expect(@item.errors.full_messages).to include("Fee can't be blank", "Fee can't be blank")
+  end
+  it '配送までの日数がないと出品できない'do
+  @item.delivery_id = ''
+  @item.valid?
+  expect(@item.errors.full_messages).to include("Delivery can't be blank", "Delivery can't be blank")
+  end
+  it '地域の指定がないと出品出来ない'do
+  @item.region_id = ''
+  @item.valid?
+  expect(@item.errors.full_messages).to include("Region can't be blank", "Region can't be blank")
+  end
+  it '値段がないと出品できない'do
+  @item.price = ''
+  @item.valid?
+  expect(@item.errors.full_messages).to include("Price must be between ¥300 and ¥9,999,999")
+  end
+  it 'category_idが1以外でなければ出品できない' do
+    @item.category_id = 1
+    @item.valid?
+    expect(@item.errors.full_messages).to include("Category can't be blank")
+  end
+  it '画像がないと出品出来ない'do
+    @item.image= nil
+    @item.valid?
+    expect(@item.errors.full_messages).to include("Image can't be blank")
+  end
+
+ end
 end
