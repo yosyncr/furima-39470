@@ -15,7 +15,7 @@ class Item < ApplicationRecord
   validates :region_id, presence: true
   validates :delivery_id, presence: true
   validates :price, presence: true
-  # validates :price,numericality: { with: /\A[0-9]+\z/, message: 'should be half-width numbers' }
+  validates :price,numericality: { with: /\A[0-9]+\z/, message: 'should be half-width numbers' }
   validates :region_id, numericality: { other_than: 1 , message: "can't be blank"}
   validates :category_id, numericality: { other_than: 1 , message: "can't be blank"}
   validates :delivery_id, numericality: { other_than: 1 , message: "can't be blank"}
