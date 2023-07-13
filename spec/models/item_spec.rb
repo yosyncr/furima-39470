@@ -85,10 +85,20 @@ RSpec.describe Item, type: :model do
     @item.valid?
     expect(@item.errors.full_messages).to include("Price must be between ¥300 and ¥9,999,999")
   end
- end
+  it '価格に半角数字以外が含まれている場合は出品できない'do
+  @item.price = '11111２'
+  @item.valid?
+  expect(@item.errors.full_messages).to include()
+  end
+  it 'userが紐付いていないと保存できない' do
+    @item.user = nil
+    @item.valid?
+    expect(@item.errors.full_messages).to include('User must exist')
+  end
+  end
  describe '出品できる場合' do
   it 'すべての情報が入力できている場合'do
   expect(@item).to be_valid
  end
-end
+ end
 end
