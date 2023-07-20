@@ -30,4 +30,3 @@ const priceInput = document.getElementById('item-price');
 
   //     feeElement.textContent = fee;
   //     profitElement.textContent = profit;
-
