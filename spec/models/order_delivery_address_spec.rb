@@ -4,8 +4,7 @@ RSpec.describe OrderDeliveryAddress, type: :model do
   before do
     item = FactoryBot.create(:item)
     user = FactoryBot.create(:user)
-    order = FactoryBot.create(:order)
-    @order_delivery_address = FactoryBot.build(:order_delivery_address,item_id: item.id,user_id: user.id,order_id: order.id)
+    @order_delivery_address = FactoryBot.build(:order_delivery_address,item_id: item.id,user_id: user.id)
   end
   context '内容に問題ある場合' do
     it "tokenが空あれば保存ができないこと" do
@@ -43,10 +42,20 @@ RSpec.describe OrderDeliveryAddress, type: :model do
     @order_delivery_address.valid?
     expect(@order_delivery_address.errors.full_messages).to include("Phone number can't be blank")
     end
-    it "電話番号は、10桁以上11桁以内の半角数値のみでないと保存できないこと"do
+    it "電話番号は、9桁以下では保存できないこと"do
     @order_delivery_address.phone_number = 111111111
     @order_delivery_address.valid?
     expect(@order_delivery_address.errors.full_messages).to include("Phone number は10桁以上11桁以内で入力してください")
+    end
+    it "電話番号は、12桁以上では保存できないこと"do
+    @order_delivery_address.phone_number = 1111111111111111
+    @order_delivery_address.valid?
+    expect(@order_delivery_address.errors.full_messages).to include("Phone number は10桁以上11桁以内で入力してください")
+    end
+    it "電話番号に半角数字以外が含まれている場合は購入できない"do
+    @order_delivery_address.phone_number = "1111111111"
+    @order_delivery_address.valid?
+    expect(@order_delivery_address.errors.full_messages).to include()
     end
     it 'userが紐付いていないと保存できないこと' do
       @order_delivery_address.user_id = nil
@@ -57,11 +66,6 @@ RSpec.describe OrderDeliveryAddress, type: :model do
       @order_delivery_address.item_id = nil
       @order_delivery_address.valid?
       expect(@order_delivery_address.errors.full_messages).to include()
-    end
-    it 'orderが紐付いていないと保存できないこと'do
-    @order_delivery_address.order_id = nil
-    @order_delivery_address.valid?
-    expect(@order_delivery_address.errors.full_messages).to include()
     end
   end
   context '内容に問題ない場合' do
