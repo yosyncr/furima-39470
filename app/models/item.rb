@@ -16,13 +16,13 @@ class Item < ApplicationRecord
   validates :region_id, presence: true
   validates :delivery_id, presence: true
   validates :price, presence: true
-  validates :price,numericality: { message: 'should be half-width numbers' }
-  validates :region_id, numericality: { other_than: 1 , message: "can't be blank"}
-  validates :category_id, numericality: { other_than: 1 , message: "can't be blank"}
-  validates :delivery_id, numericality: { other_than: 1 , message: "can't be blank"}
-  validates :condition_id, numericality: { other_than: 1 , message: "can't be blank"}
-  validates :fee_id, numericality: { other_than: 1 , message: "can't be blank"}
-  validates :price, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999,only_integer: true, message: "must be between ¥300 and ¥9,999,999" }
+  validates :price,numericality: { message: 'の全角数字は使えません' }
+  validates :region_id, numericality: { other_than: 1 , message: "は空です"}
+  validates :category_id, numericality: { other_than: 1 , message: "は空です"}
+  validates :delivery_id, numericality: { other_than: 1 , message: "は空です"}
+  validates :condition_id, numericality: { other_than: 1 , message: "は空です"}
+  validates :fee_id, numericality: { other_than: 1 , message: "は空です"}
+  validates :price, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999,only_integer: true, message: "は300円から9,999,999円の間で入力してください" }
   has_one_attached :image
 
 
