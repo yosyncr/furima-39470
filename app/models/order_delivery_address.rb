@@ -5,7 +5,7 @@ class OrderDeliveryAddress
   attr_accessor :postal_code, :region_id, :city, :address, :building_name, :phone_number,  :item_id, :user_id, :token
 
   with_options presence: true do
-    validates :region_id,numericality: { other_than: 1 , message: "can't be blank"}
+    validates :region_id,numericality: { other_than: 1 , message: "を入力してください"}
     validates :city
     validates :address
     validates :postal_code, format: { with: /\A\d{3}-\d{4}\z/, message: "は「3桁ハイフン4桁」の形式で入力してください" }
