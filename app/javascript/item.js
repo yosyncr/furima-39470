@@ -1,4 +1,5 @@
 const priceInput = document.getElementById('item-price');
+const priceGoal = document.getElementById('item-goal')
 
   priceInput.addEventListener('input', calculateFeesAndProfit);
 
